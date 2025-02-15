@@ -31,23 +31,23 @@ int main() {
     split_dataset(dataset, true_labels, train, train_labels, test, test_labels);
 
    // Criar ponteiros para os objetos
-   Pointer objs[TRAIN_SIZE];
-   for (int i = 0; i < TRAIN_SIZE; i++) {
-       objs[i] = train[i];
+   Pointer objs[NUM_ITEMS];
+   for (int i = 0; i < NUM_ITEMS; i++) {
+       objs[i] = dataset[i];
    }
     // Criar array para armazenar os clusters
-    int clusters[TRAIN_SIZE];
+    int clusters[NUM_ITEMS];
 
     // Inicializar centros dos clusters aleatoriamente
     Pointer centers[K];
-    initialize_clusters(centers, objs, K, TRAIN_SIZE);
+    initialize_clusters(centers, objs, K, NUM_ITEMS);
 
     // Configuração do K-Means
     kmeans_config config = {
         .distance_method = item_distance,
         .centroid_method = item_centroid,
         .objs = objs,
-        .num_objs = TRAIN_SIZE,
+        .num_objs = NUM_ITEMS,
         .centers = centers,
         .k = K,
         .max_iterations = KMEANS_MAX_ITERATIONS,
@@ -56,31 +56,6 @@ int main() {
     };
 
     // Executar o algoritmo K-Means
-    kmeans_result result = kmeans(&config);
-    
-    // Criar ponteiros para os objetos
-   Pointer objs[TEST_SIZE];
-   for (int i = 0; i < TEST_SIZE; i++) {
-       objs[i] = test[i];
-   }
-    // Criar array para armazenar os clusters
-    int clusters[TEST_SIZE];
-
-    // Inicializar centros dos clusters aleatoriamente
-    Pointer centers[K];
-    initialize_clusters(centers, objs, K, TEST_SIZE);
-
-    kmeans_config config = {
-        .distance_method = item_distance,
-        .centroid_method = item_centroid,
-        .objs = objs,
-        .num_objs = TEST_SIZE,
-        .centers = centers,
-        .k = K,
-        .max_iterations = KMEANS_MAX_ITERATIONS,
-        .total_iterations = 0,
-        .clusters = clusters
-    };
     kmeans_result result = kmeans(&config);
 
     // Verificar o resultado
@@ -92,12 +67,12 @@ int main() {
 
     // Verificar a precisão comparando clusters com os rótulos verdadeiros
     int correct = 0;
-    for (int i = 0; i < TEST_SIZE; i++) {
-        if (clusters[i] == test_labels[i]) correct++;
+    for (int i = 0; i < NUM_ITEMS; i++) {
+        if (clusters[i] == true_labels[i]) correct++;
     }
-    double accuracy = (double)correct / TEST_SIZE * 100;
+    double accuracy = (double)correct / NUM_ITEMS * 100;
     printf("Precisão: %.2f%%\n", accuracy);
-    print_comparison(test_labels, clusters, TEST_SIZE);
+    print_comparison(true_labels, clusters, NUM_ITEMS);
 
     return 0;
 }
