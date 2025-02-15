@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NUM_ITEMS 570
+#define NUM_ITEMS 569
 #define NUM_FEATURES 30
 
 void load_csv(const char *filename, double dataset[NUM_ITEMS][NUM_FEATURES], int true_labels[NUM_ITEMS]);

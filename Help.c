@@ -25,12 +25,12 @@ void load_csv(const char *filename, double dataset[NUM_ITEMS][NUM_FEATURES], int
         // Pega a label (segunda coluna, onde a label verdadeira está)
         token = strtok(NULL, ",");
         
-        // Converte a label de 'M' ou 'B' para 1 ou 0, respectivamente
+        // Converte a label de 'M' ou 'B' para 0 ou 1, respectivamente
         if (token != NULL) {
             if (token[0] == 'M') {
-                true_labels[i] = 1;  // 1 para Maligno
+                true_labels[i] = 0;  // 0 para Maligno
             } else if (token[0] == 'B') {
-                true_labels[i] = 0;  // 0 para Benigno
+                true_labels[i] = 1;  // 1 para Benigno
             } else {
                 true_labels[i] = -1;  // Caso a label seja desconhecida ou inválida
             }
