@@ -106,6 +106,7 @@ kmeans_result kmeans(kmeans_config *config) {
 
         // Se não houver mudanças nos clusters, o algoritmo convergiu
         if (changes == 0) {
+            Predicted_assingned_cluster(config->test_objs,config->centers,config->test_clusters,config->distance_method,config->num_test,config->k);
             return KMEANS_OK;
         }
     }
@@ -113,38 +114,24 @@ kmeans_result kmeans(kmeans_config *config) {
     // Se o número máximo de iterações for atingido
     return KMEANS_EXCEEDED_MAX_ITERATIONS;
 }
-/*void correct_clusters(int *clusters, int *train_labels, int num_objs, int k) {
-    for (int i = 0; i < num_objs; i++) {
-        if (clusters[i] != train_labels[i]) {
-            clusters[i] = train_labels[i];
-        }
-    }
-}
+void Predicted_assingned_cluster(Pointer *test_objs, Pointer *centers, int *test_clusters, kmeans_distance_method distance_method, int num_test, int k) {
+    int changes = 0;  // Contador de mudanças nos clusters
 
-void save_centroids(Pointer *objs, Pointer *centers, int *clusters, kmeans_centroid_method centroid_method, int num_objs, int k,double centroids_array[][NUM_FEATURES]) {
-    for (int i = 0; i < k; i++) {
-        centroid_method(objs, clusters, num_objs, i, centers[i]);
-        for (int j = 0; j < NUM_FEATURES; j++) {
-            centroids_array[i][j] = ((double *)centers[i])[j];  // Salvar centróides no array
-        }
-    }
-}
-
-void classify_test_data(Pointer *test_objs, Pointer *centers, int *test_clusters, kmeans_distance_method distance_method, int num_test, int k) {
     for (int i = 0; i < num_test; i++) {
         double min_distance = INFINITY;
         int best_cluster = -1;
 
+        // Verificar a qual centroide o ponto está mais próximo
         for (int j = 0; j < k; j++) {
-            double dist = distance_method(test_objs[i], centers[j]);
+            double dist = distance_method(test_objs[i], centers[j]);  // Calcula distância ao centroide j
+
             if (dist < min_distance) {
                 min_distance = dist;
                 best_cluster = j;
             }
         }
-
-        test_clusters[i] = best_cluster;
+            test_clusters[i] = best_cluster;
     }
-}*/
+}
 
 

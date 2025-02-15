@@ -42,8 +42,5 @@ void item_centroid(const Pointer *objs, const int *clusters, size_t num_objs, in
 void initialize_clusters(Pointer *centers, Pointer *objs, int k, int num_objs);
 int assign_clusters(Pointer *objs, Pointer *centers, int *clusters, kmeans_distance_method distance_method, int num_objs, int k);
 void update_centroids(Pointer *objs, Pointer *centers, int *clusters, kmeans_centroid_method centroid_method, int num_objs, int k);
-/*void correct_clusters(int *clusters, int *train_labels, int num_objs, int k);
-void classify_test_data(Pointer *test_objs, Pointer *centers, int *test_clusters, kmeans_distance_method distance_method, int num_test, int k);
-void save_centroids(Pointer *objs, Pointer *centers, int *clusters, kmeans_centroid_method centroid_method, int num_objs, int k, double centroids_array[][NUM_FEATURES]);
-*/
+void Predicted_assingned_cluster(Pointer *test_objs, Pointer *centers, int *test_clusters, kmeans_distance_method distance_method, int num_test, int k);
 #endif

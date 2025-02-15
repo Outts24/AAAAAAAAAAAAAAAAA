@@ -44,7 +44,6 @@ int main() {
     // Criar array para armazenar os clusters
     int clusters[TRAIN_SIZE];
     int test_clusters[TEST_SIZE];
-
     // Inicializar centros dos clusters aleatoriamente
     Pointer centers[K];
     initialize_clusters(centers, objs, K, TRAIN_SIZE);
@@ -77,12 +76,12 @@ int main() {
 
     // Verificar a precisão comparando clusters com os rótulos verdadeiros
     int correct = 0;
-    for (int i = 0; i < TRAIN_SIZE; i++) {
-        if (clusters[i] == train_labels[i]) correct++;
+    for (int i = 0; i < TEST_SIZE; i++) {
+        if (test_clusters[i] == test_labels[i]) correct++;
     }
-    double accuracy = (double)correct / TRAIN_SIZE * 100;
+    double accuracy = (double)correct / TEST_SIZE * 100;
     printf("Precisão: %.2f%%\n", accuracy);
-    print_comparison(train_labels, clusters, TRAIN_SIZE);
+    print_comparison(test_labels, test_clusters, TEST_SIZE);
 
     return 0;
 }
