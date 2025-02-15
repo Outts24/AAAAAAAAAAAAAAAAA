@@ -29,6 +29,9 @@ typedef struct kmeans_config {
     unsigned int max_iterations;
     unsigned int total_iterations;
     int * clusters;
+    Pointer * test_objs;
+    size_t num_test;
+    unsigned int * test_clusters;
 } kmeans_config;
 
 kmeans_result kmeans(kmeans_config *config);

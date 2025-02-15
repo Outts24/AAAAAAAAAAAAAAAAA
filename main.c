@@ -15,7 +15,7 @@
 void print_comparison(int *true_labels, int *predicted_clusters, int num_items) {
     printf("Índice\tTrue Label\tPredicted Cluster\n");
     for (int i = 0; i < num_items; i++) {
-        printf("%d\t%d\t\t%d\n", i, true_labels[i], predicted_clusters[i]);
+        printf("%d\t%d\t%d\n", i, true_labels[i], predicted_clusters[i]);
     }
 }
 int main() {
@@ -35,8 +35,15 @@ int main() {
    for (int i = 0; i < TRAIN_SIZE; i++) {
        objs[i] = train[i];
    }
+   
+   Pointer test_objs[TEST_SIZE];
+   for (int i = 0; i < TEST_SIZE; i++) {
+       test_objs[i] = test[i];
+   }
+   
     // Criar array para armazenar os clusters
     int clusters[TRAIN_SIZE];
+    int test_clusters[TEST_SIZE];
 
     // Inicializar centros dos clusters aleatoriamente
     Pointer centers[K];
@@ -52,7 +59,10 @@ int main() {
         .k = K,
         .max_iterations = KMEANS_MAX_ITERATIONS,
         .total_iterations = 0,
-        .clusters = clusters
+        .clusters = clusters,
+        .test_objs = test_objs,
+        .num_test = TEST_SIZE,
+        .test_clusters = test_clusters,
     };
 
     // Executar o algoritmo K-Means
