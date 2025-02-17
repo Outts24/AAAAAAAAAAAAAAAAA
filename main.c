@@ -12,12 +12,12 @@
 #define TRAIN_SIZE ((int)(NUM_ITEMS * 0.8))
 #define TEST_SIZE (NUM_ITEMS - TRAIN_SIZE)
 
-void print_comparison(int *true_labels, int *predicted_clusters, int num_items) {
+/*void print_comparison(int *true_labels, int *predicted_clusters, int num_items) {
     printf("Índice\tTrue Label\tPredicted Cluster\n");
     for (int i = 0; i < num_items; i++) {
         printf("%d\t%d\t%d\n", i, true_labels[i], predicted_clusters[i]);
     }
-}
+}*/
 int main() {
     double dataset[NUM_ITEMS][NUM_FEATURES];
     int true_labels[NUM_ITEMS];
@@ -75,13 +75,14 @@ int main() {
     }
 
     // Verificar a precisão comparando clusters com os rótulos verdadeiros
-    int correct = 0;
+    /*int correct = 0;
     for (int i = 0; i < TEST_SIZE; i++) {
         if (test_clusters[i] == test_labels[i]) correct++;
     }
     double accuracy = (double)correct / TEST_SIZE * 100;
-    printf("Precisão: %.2f%%\n", accuracy);
-    print_comparison(test_labels, test_clusters, TEST_SIZE);
+    printf("Precisão: %.2f%%\n", accuracy);*/
+    Precisao_compara(test_labels, test_clusters, TEST_SIZE);
+    //print_comparison(test_labels, test_clusters, TEST_SIZE);
 
     return 0;
 }

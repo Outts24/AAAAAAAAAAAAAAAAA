@@ -60,25 +60,41 @@ void split_dataset(double dataset[][NUM_FEATURES], int labels[],
         }
         test_labels[i] = labels[i + TRAIN_SIZE];
     }
-    //Print pra ver se os dados estão corretos
-    /*printf("Train:\n");
-    for(int i=0; i<0.2*TRAIN_SIZE; i++){
-        for(int j=0; j<NUM_FEATURES; j++){
-            printf("%f \t", train[i][j]); 
+}
+void Precisao_compara(int *test_labels, int *predicted_clusters, int num_test) {
+    int TP = 0, TN = 0, FP = 0, FN = 0;
+
+    for(int i = 0; i < num_test; i++) {
+        if(test_labels[i] == 0 && predicted_clusters[i] == 0) {
+            TP++;
+        } else if(test_labels[i] == 1 && predicted_clusters[i] == 1) {
+            TN++;
+        } else if(test_labels[i] == 0 && predicted_clusters[i] == 1) {
+            FP++;
+        } else if(test_labels[i] == 1 && predicted_clusters[i] == 0) {
+            FN++;
         }
     }
-    /*printf("Train Labels:\n");
-    for(int i=0; i<0.2*TRAIN_SIZE; i++){
-        printf("%d \n", train_labels[i]);
+    printf("Índice\tTrue Label\tPredicted Cluster\n");
+    for (int i = 0; i < num_test; i++) {
+        printf("%d\t%d\t%d\n", i, test_labels[i], predicted_clusters[i]);
     }
-    printf("Test:\n");
-    for(int i =0; i<TEST_SIZE; i++){
-        for(int j=0; j<NUM_FEATURES; j++){
-            printf("%f \t", test[i][j]);
-        }
-    }
-    printf("Test Labels:\n");
-    for(int i=0; i<TEST_SIZE; i++){
-        printf("%d ", test_labels[i]);
-    }*/
+    printf("TP: %d\n", TP);
+    printf("TN: %d\n", TN);
+    printf("FP: %d\n", FP);
+    printf("FN: %d\n", FN);
+
+    float erro_previsao = (float)(FP + FN) / (TP + TN + FP + FN);
+    float acurracia = (float)(TP + TN) / (TP + TN + FP + FN);
+    float precisao = (float)TP / (TP + FP);
+    float recall = (float)TP / (TP + FN);
+    float f1 = 2 * (precisao * recall) / (precisao + recall);
+
+    printf("Erro de previsao: %.2f %\n", erro_previsao*100);
+    printf("Acuracia: %.2f %\n", acurracia*100);
+    printf("Precisao: %.2f %\n", precisao*100);
+    printf("Recall: %.2f %\n", recall*100);
+    printf("F1: %.2f %\n", f1*100);
+
+    return;
 }
